@@ -48,7 +48,7 @@ export default express()
                     ],
                 },
             ],
-            order: [['createdAt', 'DESC']],
+            order: [['song_id', 'DESC']],
         })
         res.send(data.map(item => item.song))
     })
@@ -275,6 +275,7 @@ export default express()
             const collects: Array<RequestParams.collects> = req.body.collects
 
             const songs = await musicApi.getAnyVendorSongDetail(collects)
+            songs.reverse()
             const failedList: Array<{ id: number | string; msg: string; log?: any }> = []
             console.time('耗时')
             for (let i in songs) {
